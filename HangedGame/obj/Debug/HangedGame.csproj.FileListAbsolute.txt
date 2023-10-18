@@ -1,0 +1,7 @@
+C:\Users\Alumno tarde\tareas\Programacion\HangedGame\HangedGame\bin\Debug\HangedGame.exe.config
+C:\Users\Alumno tarde\tareas\Programacion\HangedGame\HangedGame\bin\Debug\HangedGame.exe
+C:\Users\Alumno tarde\tareas\Programacion\HangedGame\HangedGame\bin\Debug\HangedGame.pdb
+C:\Users\Alumno tarde\tareas\Programacion\HangedGame\HangedGame\obj\Debug\HangedGame.csproj.AssemblyReference.cache
+C:\Users\Alumno tarde\tareas\Programacion\HangedGame\HangedGame\obj\Debug\HangedGame.csproj.CoreCompileInputs.cache
+C:\Users\Alumno tarde\tareas\Programacion\HangedGame\HangedGame\obj\Debug\HangedGame.exe
+C:\Users\Alumno tarde\tareas\Programacion\HangedGame\HangedGame\obj\Debug\HangedGame.pdb
