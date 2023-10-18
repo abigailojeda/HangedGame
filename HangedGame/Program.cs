@@ -9,7 +9,7 @@ namespace HangedGame
     {
         //words
         List<string> words = new List<string>();
-        static int rounds = 3;
+        static int rounds = 7;
 
 
         static void Main(string[] args)
@@ -18,9 +18,20 @@ namespace HangedGame
             
         }
 
-       
         static void Hangman()
         {
+            string[] ahorcadoASCII = new string[]
+            {
+                "  +---+\n  |   |\n  O   |\n /|\\  |\n / \\  |\n      |\n=========",
+                "  +---+\n  |   |\n  O   |\n /|\\  |\n /    |\n      |\n=========",
+                "  +---+\n  |   |\n  O   |\n /|\\  |\n      |\n      |\n=========",
+                "  +---+\n  |   |\n  O   |\n /|   |\n      |\n      |\n=========",
+                "  +---+\n  |   |\n  O   |\n  |   |\n      |\n      |\n=========",
+                "  +---+\n  |   |\n  O   |\n      |\n      |\n      |\n=========",
+                "  +---+\n  |   |\n      |\n      |\n      |\n      |\n=========",
+                "",
+            };
+
             Program game = new Program();
             game.MostrarCabecera();
             game.PrecargarPalabras();
@@ -30,18 +41,36 @@ namespace HangedGame
 
             game.DibujarLineas(cadena);
 
-            char letter = game.SolicitarLetra();
+            while ( rounds > 0)
+            {
+                char letter = game.SolicitarLetra();
 
-            game.ComprobarLetra(cadena, letter);
+                bool result = game.ComprobarLetra(word, letter);
 
-            Console.WriteLine("Letter: " + letter);
-           
-            //Console.WriteLine("Escribe un número");
-            //string input = Console.ReadLine();
-            //int a = int.Parse(input);
-            //Console.WriteLine("Es " + a);
-            //Console.WriteLine("Presiona Enter para salir...");
-            //Console.ReadLine();
+                if (result)
+                {
+                    cadena = game.ReemplazarLineas(word, cadena, letter);
+                    Console.WriteLine("¡Letra correcta! Palabra adivinada parcialmente: " + cadena);
+                }
+                else
+                {
+                    game.DecrementarVidas();
+                    Console.WriteLine("Ups!!! te quedan " + rounds + " intentos");
+                    Console.WriteLine(ahorcadoASCII[rounds]);
+                }
+            }
+
+            if (cadena.Contains("_"))
+            {
+                Console.WriteLine("¡Has perdido! La palabra era: " + word);
+            }
+            else
+            {
+                Console.WriteLine("¡Felicidades! Has adivinado la palabra: " + word);
+            }
+
+            Console.WriteLine("Pulsa una tecla para salir ");
+            string input = Console.ReadLine();
         }
 
         public void MostrarCabecera()
@@ -93,33 +122,53 @@ namespace HangedGame
 
         public char SolicitarLetra()
         {
-            //char letter = '\0'; 
+            char letter = '\0'; 
 
-            //while (letter == '\0')
-            //{
-            //    Console.Write("Inserta una letra: ");
-            //    string input = Console.ReadLine();
-            //    Console.WriteLine("Letter: " + input);
+            while (letter == '\0')
+            {
+                Console.Write("Inserta una letra: ");
+                string input = Console.ReadLine();
+             
+               if (input.Length == 1 && char.IsLetter(input[0]))
+                {
+                    letter = input[0];
+               }
+                else
+                {
+                    Console.WriteLine("Entrada no válida. Por favor, inserta una única letra.");
+                }
+            }
 
-            //    if (input.Length == 1 && char.IsLetter(input[0]))
-            //    {
-            //        letter = input[0];
-            //    }
-            //    else
-            //    {
-            //        Console.WriteLine("Entrada no válida. Por favor, inserta una única letra.");
-            //    }
-            //}
-
-            //return letter;
-
-            char letter = '\0';
             return letter;
+
         }
 
-        public void ComprobarLetra(string palabra, char letra)
+        public bool ComprobarLetra(string palabra, char letra)
         {
-            Console.WriteLine("PUES: " + palabra.Contains(letra));
+            return palabra.Contains(letra);
+        }
+
+        public void DecrementarVidas()
+        {
+            if (rounds > 0)
+            {
+                rounds--;
+            }
+        }
+
+        public string ReemplazarLineas(string palabraAdivinar, string palabraAdivinada, char letra)
+        {
+            char[] palabraAdivinadaArray = palabraAdivinada.ToCharArray();
+
+            for (int i = 0; i < palabraAdivinar.Length; i++)
+            {
+                if (palabraAdivinar[i] == letra)
+                {
+                    palabraAdivinadaArray[i] = letra;
+                }
+            }
+
+            return new string(palabraAdivinadaArray);
         }
 
 
